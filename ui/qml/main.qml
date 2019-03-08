@@ -7,7 +7,6 @@ import QtQml 2.2
 import QtQuick.Dialogs 1.3
 
 
-
 ApplicationWindow {
     id: _window
     title: "pictureviewer"
@@ -136,6 +135,7 @@ ApplicationWindow {
     Controls1.SplitView {
         anchors.fill: parent
         orientation: Qt.Vertical
+        
         ToolTip.toolTip.background: Rectangle {
             color: "lightslategray"
             border.color: "black"
@@ -163,12 +163,18 @@ ApplicationWindow {
                         text: "Stop"
                     }
                     Button {
-                        visible: true
                         text: "Submit"
                     }
                 }
             }
             
+        }
+
+        WorkspaceView {
+            id: workspaceView
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+
         }
 
         Controls1.SplitView {
