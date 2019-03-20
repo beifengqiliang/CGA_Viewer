@@ -45,7 +45,7 @@ Panel {
             Image {
                 anchors.fill: parent
                 fillMode: Image.PreserveAspectFit
-                source: imageSource  
+                source: imageSource 
             }
         }
     }

@@ -2,6 +2,7 @@ import QtQuick 2.7
 import QtQuick.Controls 2.3
 import QtQuick.Controls 1.4 as Controls1 // For SplitView
 import QtQuick.Layouts 1.3
+import QtQuick.Scene3D 2.0
 import Qt.labs.platform 1.0 as Platform
 
 
@@ -47,6 +48,18 @@ Item {
             implicitWidth: Math.round(parent.width * 0.45)
             Layout.minimumWidth: 20
             Layout.minimumHeight: 80
+
+            Scene3D {
+                id: scene3d
+                anchors.fill: parent
+                anchors.margins: 10
+                focus: true
+                aspects: ['input', 'logic']
+                cameraAspectRatioMode: Scene3D.AutomaticAspectRatio
+                hoverEnabled: true
+                
+                View3D {}
+            }
 
         }
     }
