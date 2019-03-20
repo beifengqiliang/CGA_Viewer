@@ -27,7 +27,10 @@ ApplicationWindow {
 
     // 菜单栏
     menuBar: MenuBar {
-        palette.window: Qt.darker(activePalette.window, 1.15)
+        //palette.window: Qt.darker(activePalette.window, 1.15)
+        width: parent.width
+        height: 0
+
         Menu {
             title: "File"
             Action {
@@ -58,14 +61,12 @@ ApplicationWindow {
         Menu {
             title: "Edit"
             MenuItem {
-                action: undoAction
-                ToolTip.visible: hovered
-                ToolTip.text: undoAction.tooltip
+                text:"undoAction"
+                
             }
             MenuItem {
-                action:redoAction
-                ToolTip.visible: hovered
-                ToolTip.text: redoAction.tooltip
+                text:"redoAction"
+                
             }
         }
         Menu {
@@ -109,27 +110,6 @@ ApplicationWindow {
             color: "lightslategray"
             border.color: "black"
         }
-        RowLayout {
-            ToolButton {
-                ToolTip.visible: hovered
-                ToolTip.text: qsTr("Create new File")
-                icon.name: "New"
-                icon.source: "../img/new.png"
-            }
-            ToolButton {
-                ToolTip.visible: hovered
-                ToolTip.text: qsTr("Open File")
-                icon.name: "Open"
-                icon.source: "../img/open.png"
-                onClicked: openFileDialog.open()
-            }
-            ToolButton {
-                ToolTip.visible: hovered
-                ToolTip.text: qsTr("Save File")
-                icon.name: "Open"
-                icon.source: "../img/open.png"
-            }
-        }
     }
 
     Controls1.SplitView {
@@ -154,18 +134,6 @@ ApplicationWindow {
                 Layout.fillWidth: false
                 Layout.alignment: Qt.AlignHCenter
 
-                Row {
-                    spacing: 20
-                    Button {
-                        text: "Start"
-                    }
-                    Button {
-                        text: "Stop"
-                    }
-                    Button {
-                        text: "Submit"
-                    }
-                }
             }
             
         }

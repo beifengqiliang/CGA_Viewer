@@ -25,15 +25,14 @@ Item {
             orientation: Qt.Vertical
             Layout.fillHeight: true
             Layout.minimumWidth: imageGallery.defaultCellSize
+            
+            ImageGallery {
+                id: imageGallery
+                Layout.fillHeight: true
+                
+            }
         }
 
-        Panel {
-            title: "Images"
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-            Layout.minimumWidth: 40
-            
-        }
 
         Panel {
             title: "Image Viewer"
@@ -49,21 +48,6 @@ Item {
             Layout.minimumWidth: 20
             Layout.minimumHeight: 80
 
-            
-
-            // Load reconstructed model
-            Button {
-                readonly property var outputAttribute: _reconstruction.endNode ? _reconstruction.endNode.attribute("outputMesh") : null
-                readonly property bool outputReady: outputAttribute && _reconstruction.endNode.globalStatus === "SUCCESS"
-                readonly property int outputMediaIndex: viewer3D.library.find(outputAttribute)
-
-                text: "Load Model"
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 10
-                anchors.horizontalCenter: parent.horizontalCenter
-                visible: outputReady && outputMediaIndex == -1
-                //onClicked: viewer3D.view(_reconstruction.endNode.attribute("outputMesh"))
-            }
         }
     }
 }
