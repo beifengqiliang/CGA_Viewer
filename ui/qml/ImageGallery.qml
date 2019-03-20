@@ -12,13 +12,6 @@ Panel {
     width: 300
     height: 480
 
-    ListView {
-        id: listView
-        anchors.fill: parent
-
-        model: planets
-        delegate: detailsDelegate
-    }
 
     ListModel {
         id: planets
@@ -29,82 +22,31 @@ Panel {
         ListElement { name: "Mars"; imageSource: "images/mars.jpg" }
     }
     
+    GridView {
+        anchors.fill: parent
+        anchors.margins: 20
+
+        clip: true
+        model: planets
+        delegate: planetsDelegate
+
+        // 单元宽度（cellWidth）与单元高度（cellHeight）
+        cellWidth: 85
+        cellHeight: 85  
+    }
+
     Component {
-        id: detailsDelegate
-        
-        Item {
-            id: wrapper
-            width: listView.width
-            height: 30
-            
-            Rectangle {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-                height: 30
-                color: "#87CEFA"
-                
-                Text {
-                    anchors.left: parent.left
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: name
-                }
-            }
-            
-            Rectangle {
-                id: image
-                color: "black"
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.rightMargin: 2
-                anchors.topMargin: 2
-                width: 26
-                height: 26
-                
-                Image {
-                    anchors.fill: parent
-                    fillMode: Image.PreserveAspectFit
-                    source: imageSource
-                }
-            }
-            
-            MouseArea {
+        id: planetsDelegate
+
+        Rectangle {
+            width: 80
+            height: 80
+
+            Image {
                 anchors.fill: parent
-                onClicked: parent.state = "expanded"
+                fillMode: Image.PreserveAspectFit
+                source: imageSource  
             }
-            
-            Rectangle {
-                id: closeButton
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.rightMargin: 2
-                anchors.topMargin: 2
-                width: 26
-                height: 26
-                color: "gray"
-                opacity: 0
-                
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: wrapper.state = ""
-                }
-            }
-            
-            states: [State {
-                name: "expanded"
-                
-                PropertyChanges { target: wrapper; height: listView.height }
-                PropertyChanges { target: image; width: listView.width; height: listView.width; anchors.rightMargin: 0; anchors.topMargin: 30 }
-                PropertyChanges { target: closeButton; opacity: 1 }
-                PropertyChanges { target: wrapper.ListView.view; contentY: wrapper.y; interactive: false }
-            }]
-            
-            transitions: [Transition {
-                NumberAnimation {
-                    duration: 200;
-                    properties: "height,width,anchors.rightMargin,anchors.topMargin,opacity,contentY"
-                }
-            }]
         }
     }
 }
