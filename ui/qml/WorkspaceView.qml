@@ -40,6 +40,13 @@ Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
             Layout.minimumWidth: 80
+
+            Image {
+                id: theImage
+                anchors.fill: parent
+                fillMode: Image.PreserveAspectFit
+                source: "images/03.jpg"
+            }
             
         }
 

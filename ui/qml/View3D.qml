@@ -17,7 +17,7 @@ Entity {
         position: Qt.vector3d(24.0, 20.0, -20.0)
         upVector: Qt.vector3d(0.0, 1.0, 0.0)
         viewCenter: Qt.vector3d(0.0, 0.0, 0.0)
-            }
+    }
 
     FirstPersonCameraController { camera: mainCamera }
 
@@ -30,6 +30,28 @@ Entity {
         },
         InputSettings {}
     ]
+
+
+    PhongMaterial {
+        id: phongMaterial
+        ambient: "#FFF"
+        diffuse: "#222"
+        specular: diffuse
+        shininess: 0
+    }
+
+    Entity {
+        id: childentity
+
+        Mesh
+        {
+            id: chestMesh
+            source: "assets/03.obj"
+        }
+
+        components: [ chestMesh, phongMaterial ]
+    }
+
 
     Grid3D { enabled: true }
 }
