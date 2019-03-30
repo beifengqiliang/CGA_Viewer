@@ -3,6 +3,7 @@ import Qt3D.Core 2.1
 import Qt3D.Render 2.1
 import Qt3D.Extras 2.1
 import Qt3D.Input 2.1
+import Qt3D.Extras 2.12
 
 
 Entity {
@@ -43,13 +44,26 @@ Entity {
     Entity {
         id: childentity
 
-        Mesh
-        {
+        Mesh {
             id: chestMesh
-            source: "assets/03.obj"
+            //source: "assets/03.obj"
+
+            ConeMesh {
+                id: cone
+
+                bottomRadius:20
+                hasBottomEndcap: false
+                hasTopEndcap: true
+                rings : 20
+                slices : 3
+                topRadius : 3
+
+            }
+               
+            
         }
 
-        components: [ chestMesh, phongMaterial ]
+        components: [ chestMesh, cone, phongMaterial ]
     }
 
 
