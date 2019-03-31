@@ -1,1 +1,1 @@
-# PicturesViewer
+# CGA_Viewer
