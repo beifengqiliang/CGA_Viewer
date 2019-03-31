@@ -48,22 +48,27 @@ Entity {
             id: chestMesh
             //source: "assets/03.obj"
 
-            ConeMesh {
-                id: cone
+            CuboidMesh {
+                id: cuboid
 
-                bottomRadius:20
-                hasBottomEndcap: false
-                hasTopEndcap: true
-                rings : 20
-                slices : 3
-                topRadius : 3
+                // 保持网格的x范围
+                xExtent: 6
+                // 保持网格的xy分辨率。此属性的宽度和高度值指定为网格的xy面生成的顶点数
+                xyMeshResolution: Qt.size(150, 50)
+                // 保持网格的xz分辨率。此属性的宽度和高度值指定为网格的xz面生成的顶点数
+                xzMeshResolution: Qt.size(150, 50)
+                // 保持网格的y范围
+                yExtent: 6
+                // 保持网格的yz分辨率。此属性的宽度和高度值指定为网格的yz面生成的顶点数
+                yzMeshResolution: Qt.size(150, 50)
+                // 保持网格的z范围
+                zExtent: 5
 
-            }
-               
+            }         
             
         }
 
-        components: [ chestMesh, cone, phongMaterial ]
+        components: [ chestMesh, cuboid, phongMaterial ]
     }
 
 
