@@ -1,8 +1,7 @@
 import QtQuick 2.7
-import Qt3D.Core 2.1
-import Qt3D.Render 2.1
-import Qt3D.Extras 2.1
-import Qt3D.Input 2.1
+import Qt3D.Core 2.12
+import Qt3D.Render 2.12
+import Qt3D.Input 2.12
 import Qt3D.Extras 2.12
 
 
@@ -48,27 +47,23 @@ Entity {
             id: chestMesh
             //source: "assets/03.obj"
 
-            CuboidMesh {
-                id: cuboid
+            CylinderMesh {
+                id: basicmesh
 
-                // 保持网格的x范围
-                xExtent: 6
-                // 保持网格的xy分辨率。此属性的宽度和高度值指定为网格的xy面生成的顶点数
-                xyMeshResolution: Qt.size(150, 50)
-                // 保持网格的xz分辨率。此属性的宽度和高度值指定为网格的xz面生成的顶点数
-                xzMeshResolution: Qt.size(150, 50)
-                // 保持网格的y范围
-                yExtent: 6
-                // 保持网格的yz分辨率。此属性的宽度和高度值指定为网格的yz面生成的顶点数
-                yzMeshResolution: Qt.size(150, 50)
-                // 保持网格的z范围
-                zExtent: 5
+                // 圆柱的长度
+                length: 6
+                // 圆柱的半径
+                radius: 5
+                // 环数
+                rings: 2
+                // 切片数
+                slices: 4
 
             }         
             
         }
 
-        components: [ chestMesh, cuboid, phongMaterial ]
+        components: [ chestMesh, basicmesh, phongMaterial ]
     }
 
 
