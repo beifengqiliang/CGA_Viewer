@@ -17,11 +17,11 @@ ApplicationWindow {
     FileDialog {
         id: openFileDialog
         title: "Open Files"
-        nameFilters: ["Image Files(*.jpg)"]
+        nameFilters: ["XML Files(*.xml)"]
         folder: shortcuts.desktop
         onAccepted: {
             console.log("You chose: " + openFileDialog.fileUrls)
-            
+            //loadCGA(openFileDialog.fileUrls)  
         }
     }
 
@@ -38,7 +38,7 @@ ApplicationWindow {
                 shortcut: "Ctrl+N"
             }
             Action {
-                text: "Open"
+                text: "Open CGA"
                 shortcut: "Ctrl+O"
                 onTriggered: openFileDialog.open()
             }

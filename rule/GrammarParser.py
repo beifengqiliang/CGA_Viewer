@@ -3,6 +3,24 @@ from PySide2.QtXml import QDomDocument
 from PySide2.QtCore import QFile
 from PySide2.QtCore import QIODevice
 
+# 测试
+def parserGrammar(filename):
+	doc = QDomDocument(filename)
+	file = QFile(filename)
+
+	doc.setContent(file)
+	root = doc.documentElement()
+	child_node = root.firstChild()
+
+	# 对xml文件的每个grammar节点进行分析
+	while not(child_node.isNull()):
+		if child_node.toElement().tagName() == "grammar" :
+			grammar = Grammar()
+			parseGrammar(child_node.toElement(), grammar)
+			grammars.push_back(grammar)
+        
+		child_node = child_node.nextSibling()
+    		
 def parseGrammar(filename, grammar):
 	file = QFile(filename)
 
@@ -26,6 +44,7 @@ def parseGrammar(filename, grammars):
 			grammar = Grammar()
 			parseGrammar(child_node.toElement(), grammar)
 			grammars.push_back(grammar)
+			
 		child_node = child_node.nextSibling()
 
 # 对一个grammar里的attr和rule子节点进行解析
