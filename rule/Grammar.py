@@ -1,4 +1,5 @@
 
+
 class Attribute:
     def __init__(self, name, value):
         self.name = name
@@ -11,7 +12,8 @@ class Attribute:
         self.hasRange = true
         self.range_start = range_start
         self.range_end = range_end
-    
+
+
 class Value:
     def getEstimateValue(self, size, grammar, shape):
         if (type == Value.TYPE_ABSOLUTE):
@@ -22,22 +24,19 @@ class Value:
             return grammar.evalFloat(value, shape)
 
     def toXml(self, doc):
-		# QDomElement对象代表整个XML文档
-        node = doc.createElement("param")
-		
-		if (type == TYPE_ABSOLUTE):
-			node.setAttribute("type", "absolute")
-		elif (type == TYPE_RELATIVE):
-			node.setAttribute("type", "relative")
-		elif (type == TYPE_FLOATING):
-			node.setAttribute("type", "floating")
-		
-		node.setAttribute("value", value.c_str())
-		
-		if (repeat):
-			node.setAttribute("repeat", "true")
-		
-		return node
+        # QDomElement对象代表整个XML文档
+        node = doc.createElement("param")     
+        if (type == TYPE_ABSOLUTE):
+            node.setAttribute("type", "absolute")
+        elif (type == TYPE_RELATIVE):
+            node.setAttribute("type", "relative")
+        elif (type == TYPE_FLOATING):
+            node.setAttribute("type", "floating")	
+        node.setAttribute("value", value.c_str())	
+        if (repeat):
+            node.setAttribute("repeat", "true")	
+        return node
+
 
 class Rule:
     def apply(self, shape, grammar, stack, shapes):
@@ -45,49 +44,48 @@ class Rule:
         # 某些操作（例如comp和split）将应用的形状存储在堆栈中
         for i in range(0, operators.size(), 1):
             shape = operators[i].apply(shape, grammar, stack)
-		    if (shape == NULL) break
-	
-	    if (shape != NULL):
-		    if (operators.size() == 0 or operators.back().name == "copy"):
-			    # 如果它以copy结束，则不再需要此shape
-			    shape._active = false
-			    shapes.push_back(shape)
-		    else:
-			    # 如果它不以copy结束，则需要绘制此shape
-			    # 存储在shapes栈中
-			    shape._active = true
-			    shapes.push_back(shape)
+            if (shape == NULL):
+                break
+        if (shape != NULL):
+            if (operators.size() == 0 or operators.back().name == "copy"):
+                # 如果它以copy结束，则不再需要此shape
+                shape._active = false
+                shapes.push_back(shape)
+            else:
+                # 如果它不以copy结束，则需要绘制此shape
+                # 存储在shapes栈中
+                shape._active = true
+                shapes.push_back(shape)
 
     def decodeSplitSizes(self, size, sizes, output_names, grammar, shape, decoded_sizes, decoded_output_names):
         # 在指定split大小后计算每个片段的大小
 
         # float regular_sum = 0.0f;
-	    # float floating_sum = 0.0f;
-	    # int repeat_count = 0;
-	    # float repeat_unit = 0.0f;
-	    # int repeat_num = 0;
-	    # float repeat_scale = 1.0f;
+        # float floating_sum = 0.0f;
+        # int repeat_count = 0;
+        # float repeat_unit = 0.0f;
+        # int repeat_num = 0;
+        # float repeat_scale = 1.0f;
 
-	    for i in range(0, sizes.size(), 1):
-		    if (sizes[i].repeat):
-			    repeat_count += 1
-		
-		    else:
-			    if (sizes[i].type == Value.TYPE_ABSOLUTE):
-				    regular_sum += grammar.evalFloat(sizes[i].value, shape)
-			    elif (sizes[i].type == Value.TYPE_RELATIVE):
-				    regular_sum += size * grammar.evalFloat(sizes[i].value, shape)
-			    elif (sizes[i].type == Value.TYPE_FLOATING):
-				    floating_sum += grammar.evalFloat(sizes[i].value, shape)
-		floating_scale = 1.0
+        for i in range(0, sizes.size(), 1):
+            if (sizes[i].repeat):
+                repeat_count += 1
+            else:
+                if (sizes[i].type == Value.TYPE_ABSOLUTE):
+                    regular_sum += grammar.evalFloat(sizes[i].value, shape)
+                elif (sizes[i].type == Value.TYPE_RELATIVE):
+                    regular_sum += size * grammar.evalFloat(sizes[i].value, shape)
+                elif (sizes[i].type == Value.TYPE_FLOATING):
+                    floating_sum += grammar.evalFloat(sizes[i].value, shape)
+        floating_scale = 1.0
         if (floating_sum > 0 and repeat_count == 0):
-            floating_scale = std::max(0.0, size - regular_sum) / floating_sum
+            floating_scale = max(0.0, size - regular_sum) / floating_sum
 
-	    if (repeat_count > 0):
+        if (repeat_count > 0):
             for i in range(0, sizes.size(), 1):
-			    if (sizes[i].repeat):
-				    repeat_unit += sizes[i].getEstimateValue(size - regular_sum - floating_sum * floating_scale, grammar, shape)
-		    repeat_num = std.max(0.0, (size - regular_sum - floating_sum * floating_scale) / repeat_unit + 0.5)
+                if (sizes[i].repeat):
+                    repeat_unit += sizes[i].getEstimateValue(size - regular_sum - floating_sum * floating_scale, grammar, shape)
+            repeat_num = std.max(0.0, (size - regular_sum - floating_sum * floating_scale) / repeat_unit + 0.5)
 		    if (repeat_num == 0):
 			    if (size - regular_sum - floating_sum * floating_scale > 0):
 				    repeat_num = 1
