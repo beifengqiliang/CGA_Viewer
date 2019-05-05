@@ -26,7 +26,7 @@ Entity{
         RenderSettings {
             activeFrameGraph: ForwardRenderer {
                 camera: mainCamera
-                clearColor: "transparent"
+                clearColor: "grey"
             }
         },
         InputSettings {}
@@ -50,18 +50,27 @@ Entity{
             geometry: Geometry{
                 
                 Attribute{
+                    id:shapePosition
                     attributeType: Attribute.VertexAttribute
                     vertexBaseType: Attribute.Float
                     vertexSize: 3
                     byteOffset: 0
                     byteStride: 3 * 4
-                    count: drawData.count
-                    buffer: drawData.buffer
+                    count: 3
+                    name: defaultPositionAttributeName
+                    buffer: Buffer {
+						type: Buffer.VertexBuffer
+						data: new Float32Array([
+                            10.0, 0.0, 0.0,
+                            0.0, 10.0, 0.0,
+                            0.0, 15.0, 0.0,
+                        ])
+                    }
                 }
             }
         }
     
       components: [phongMaterial, geometryRenderer]
     }
-    Grid3D {}
+    
 }

@@ -5,11 +5,11 @@ class ExtrudeOperator:
         self.height = height
 
     def apply(self, shape, grammar, stack):
-        actual_height = grammar.evalFloat(height, shape)
+        actual_height = grammar.evalFloat(self.height, shape)
         return shape.extrude(shape._name, actual_height)
 
     def toXml(self, doc):
-        node = doc.createElement(name.c_str())
-        node.setAttribute("height", height.c_str())
+        node = doc.createElement(self.name.c_str())
+        node.setAttribute("height", self.height.c_str())
                 
         return node

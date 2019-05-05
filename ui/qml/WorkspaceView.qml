@@ -65,7 +65,7 @@ Item {
                 cameraAspectRatioMode: Scene3D.AutomaticAspectRatio
                 hoverEnabled: true
                 
-                Qt3Dexample {}
+                ShapeRender {}
             }
 
         }

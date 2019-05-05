@@ -15,18 +15,18 @@ class ColorOperator:
         self.s = s
 
     def apply(self, shape, grammar, stack):
-        if (s.empty()):
-            shape._color.r = grammar.evalFloat(r, shape)
-            shape._color.g = grammar.evalFloat(g, shape)
-            shape._color.b = grammar.evalFloat(b, shape)
+        if (self.s.empty()):
+            shape._color.r = grammar.evalFloat(self.r, shape)
+            shape._color.g = grammar.evalFloat(self.g, shape)
+            shape._color.b = grammar.evalFloat(self.b, shape)
         else:
             decodeRGB(grammar.evalString(s, shape), shape._color.r, shape._color.g, shape._color.b)
         
         return shape
     
     def toXml(self, doc):
-	    node = doc.createElement(name.c_str())
-        if (s.empty()):
+	    node = doc.createElement(self.name.c_str())
+        if s.empty():
             node.setAttribute("r", r.c_str())
             node.setAttribute("g", g.c_str())
             node.setAttribute("b", b.c_str())
