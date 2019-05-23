@@ -65,7 +65,7 @@ Item {
                 cameraAspectRatioMode: Scene3D.AutomaticAspectRatio
                 hoverEnabled: true
                 
-                ShapeRender {}
+                View3D {}
             }
 
         }

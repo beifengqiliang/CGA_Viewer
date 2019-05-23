@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-from PyQt5.QtCore import QUrl, QObject, pyqtSlot
-from PyQt5.QtGui import QGuiApplication
-from PyQt5.QtQuick import QQuickView
+from PySide2.QtCore import QUrl, QObject, Slot
+from PySide2.QtGui import QGuiApplication
+from PySide2.QtQuick import QQuickView
 
 class MyClass(QObject):
-    @pyqtSlot(str)    # 输入参数为str类型
+    @Slot(str)    # 输入参数为str类型
     def outputString(self, string):
         """
         功能: 创建一个槽

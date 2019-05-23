@@ -1,5 +1,4 @@
 
-
 class Attribute:
     def __init__(self, name, value):
         self.name = name
@@ -86,77 +85,77 @@ class Rule:
                 if (sizes[i].repeat):
                     repeat_unit += sizes[i].getEstimateValue(size - regular_sum - floating_sum * floating_scale, grammar, shape)
             repeat_num = std.max(0.0, (size - regular_sum - floating_sum * floating_scale) / repeat_unit + 0.5)
-		    if (repeat_num == 0):
-			    if (size - regular_sum - floating_sum * floating_scale > 0):
-				    repeat_num = 1
-		    if (repeat_num > 0):
-			repeat_scale = std.max(0.0, (size - regular_sum - floating_sum * floating_scale) / (float)repeat_num / repeat_unit)
-		    if (floating_sum > 0):
-			    floating_scale = std.max(0.0, size - regular_sum - repeat_unit * repeat_scale * repeat_num) / floating_sum)
-	    for i in range(0, sizes.size(), 1):
-		    if (sizes[i].repeat):
-			    s = sizes[i].getEstimateValue(size - regular_sum - floating_sum * floating_scale, grammar, shape)
-			    s *= repeat_scale
-			    for k in range(0, repeat_num, 1):
-				    decoded_sizes.push_back(s)
-				    decoded_output_names.push_back(output_names[i])
-		    else:
-			    if (sizes[i].type == Value.TYPE_ABSOLUTE):
-				    decoded_sizes.push_back(grammar.evalFloat(sizes[i].value, shape))
-				    decoded_output_names.push_back(output_names[i])
-			    elif (sizes[i].type == Value.TYPE_RELATIVE):
-				    decoded_sizes.push_back(grammar.evalFloat(sizes[i].value, shape) * size)
-				    decoded_output_names.push_back(output_names[i])
-			    elif (sizes[i].type == Value.TYPE_FLOATING):
-				    decoded_sizes.push_back(grammar.evalFloat(sizes[i].value, shape) * floating_scale)
-				    decoded_output_names.push_back(output_names[i])
+            if (repeat_num == 0):
+                if (size - regular_sum - floating_sum * floating_scale > 0):
+                    repeat_num = 1
+            if (repeat_num > 0):
+            repeat_scale = std.max(0.0, (size - regular_sum - floating_sum * floating_scale) / (float)repeat_num / repeat_unit)
+            if (floating_sum > 0):
+                floating_scale = std.max(0.0, size - regular_sum - repeat_unit * repeat_scale * repeat_num) / floating_sum)
+        for i in range(0, sizes.size(), 1):
+            if (sizes[i].repeat):
+                s = sizes[i].getEstimateValue(size - regular_sum - floating_sum * floating_scale, grammar, shape)
+                s *= repeat_scale
+                for k in range(0, repeat_num, 1):
+                    decoded_sizes.push_back(s)
+                    decoded_output_names.push_back(output_names[i])
+            else:
+                if (sizes[i].type == Value.TYPE_ABSOLUTE):
+                    decoded_sizes.push_back(grammar.evalFloat(sizes[i].value, shape))
+                    decoded_output_names.push_back(output_names[i])
+                elif (sizes[i].type == Value.TYPE_RELATIVE):
+                    decoded_sizes.push_back(grammar.evalFloat(sizes[i].value, shape) * size)
+                    decoded_output_names.push_back(output_names[i])
+                elif (sizes[i].type == Value.TYPE_FLOATING):
+                    decoded_sizes.push_back(grammar.evalFloat(sizes[i].value, shape) * floating_scale)
+                    decoded_output_names.push_back(output_names[i])
 
 class Grammar:
 
-	def contain(self, name):
-		if (rules.find(name) == rules.end()):
-			return false
-		else:
-			return true
+    def contain(self, name):
+        if (rules.find(name) == rules.end()):
+            return false
+        else:
+            return true
 
     def addAttr(self, name, value):
-		attrs[name] = value
+        attrs[name] = value
 
     def addRule(self, name):
-		rules[name].operators.clear()
+        rules[name].operators.clear()
 
-	def addOperator(self, name, op):
-		rules[name].operators.push_back(op)
+    def addOperator(self, name, op):
+        rules[name].operators.push_back(op)
 
-	def evalFloat(self, attr_name, shape):
-	    # myeval::calculator<std::string::const_iterator> calc;
+    def evalFloat(self, attr_name, shape):
+        # myeval::calculator<std::string::const_iterator> calc;
 
-	    # myeval::variables.clear();
-	    # myeval::variables.add("scope.sx", shape->_scope.x);
-	    # myeval::variables.add("scope.sy", shape->_scope.y);
-	    # myeval::variables.add("scope.sz", shape->_scope.z);
+        # myeval::variables.clear();
+        # myeval::variables.add("scope.sx", shape->_scope.x);
+        # myeval::variables.add("scope.sy", shape->_scope.y);
+        # myeval::variables.add("scope.sz", shape->_scope.z);
 
-	    it = attrs.begin()
-		while (it != attrs.end()):
-		    # float val;
-		    if (sscanf(it.second.value.c_str(), "%f", val) != EOF):
-			    myeval.variables.add(it.first, val)
-			it += 1
+        it = attrs.begin()
+        while (it != attrs.end()):
+            # float val;
+            if (sscanf(it.second.value.c_str(), "%f", val) != EOF):
+                myeval.variables.add(it.first, val)
+            it += 1
 
-	    # float result;
-	    iter = attr_name.begin()
-	    end = attr_name.end()
-	    r = phrase_parse(iter, end, calc, result)
-	    if (r and iter == end):
-			return result
-		else:
-			rest(iter, end)
-		    print("Parsing failed\n")
-		    print("stopped at: \": " + rest + "\"\n")
-		    throw("Parsing failed\nstpped at: \": " + rest + "\"\n")
+        # float result;
+        iter = attr_name.begin()
+        end = attr_name.end()
+        r = phrase_parse(iter, end, calc, result)
+        if (r and iter == end):
+            return result
+        else:
+            rest(iter, end)
+            print("Parsing failed\n")
+            print("stopped at: \": " + rest + "\"\n")
+            throw("Parsing failed\nstpped at: \": " + rest + "\"\n")
 
-	def evalString(self, attr_name, shape):
-	    if (attrs.find(attr_name) == attrs.end()):
-		    return attr_name
-	    else:
-			return attrs.at(attr_name).value
+    def evalString(self, attr_name, shape):
+        if (attrs.find(attr_name) == attrs.end()):
+            return attr_name
+        else:
+            return attrs.at(attr_name).value

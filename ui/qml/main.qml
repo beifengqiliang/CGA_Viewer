@@ -9,7 +9,7 @@ import QtQuick.Dialogs 1.3
 
 ApplicationWindow {
     id: _window
-    title: "pictureviewer"
+    title: "CGA_viewer"
     width: 1000
     height: 800
     visible: true
@@ -17,7 +17,7 @@ ApplicationWindow {
     FileDialog {
         id: openFileDialog
         title: "Open Files"
-        nameFilters: ["XML Files(*.xml)"]
+        nameFilters: ["CGA Files(*.xml)"]
         folder: shortcuts.desktop
         onAccepted: {
             console.log("You chose: " + openFileDialog.fileUrls)
@@ -72,14 +72,14 @@ ApplicationWindow {
         Menu {
             title: "View"
             MenuItem {
-                id: graphEditorVisibilityCB
-                text: "Graph Editor"
+                id: basicRender
+                text: "Basic Render"
                 checkable: true
                 checked: true
             }
             MenuItem {
-                id: liveSfMVisibilityCB
-                text: "Live Reconstruction"
+                id: lineRender
+                text: "Line Render"
                 checkable: true
                 checked: false
             }
